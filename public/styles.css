@@ -1,0 +1,57 @@
+/* styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle, #f4e4e1, #f4e4e1, #f8e7f7, #e3f2fc, #e6f4f5, #f7fcf8); /* Radial gradient background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+  padding: 50px;
+  background: rgba(255, 255, 255, 0.6); 
+  border-radius: 35px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 2.5em;
+  background: #475056;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  padding: 10px;
+}
+
+input {
+  padding: 10px;
+  margin: 10px 0;
+  border: none; 
+  border-bottom: 2px solid #f9e3b4; 
+  border-radius: 10px;
+  outline: none; 
+}
+
+input:focus {
+  border-bottom: 2px solid #f6e7a3; 
+}
+
+button {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #ffbd7b;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #feb47b;
+}
