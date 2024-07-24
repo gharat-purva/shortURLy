@@ -16,16 +16,15 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // Serve index.html as the root file
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+    res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 const mongoURI = 'mongodb://localhost:27017/url-shortener';
-
 mongoose.connect(mongoURI).then(() => {
-  console.log('MongoDB connected');
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
+    console.log('MongoDB connected');
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
 }).catch((error) => {
-  console.error(error.message);
+    console.error(error.message);
 });

@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>shortURLy</title>
-    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h1>URL Shortener</h1>
         <form id="urlForm">
-            <input type="text" id="originalUrl" placeholder="Enter URL to shorten..." required>
+            <input type="text" id="originalUrl" placeholder="Enter URL to shorten" required>
             <button type="submit">Shorten URL</button>
         </form>
         <div id="result"></div>
@@ -20,7 +20,7 @@
         document.getElementById('urlForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const originalUrl = document.getElementById('originalUrl').value;
-    
+
             const response = await fetch('/api/url/shorten', {
                 method: 'POST',
                 headers: {
@@ -28,12 +28,12 @@
                 },
                 body: JSON.stringify({ originalUrl })
             });
-    
+
             const data = await response.json();
-    
+
             const resultDiv = document.getElementById('result');
             if (response.ok) {
-                resultDiv.innerHTML = `<p>Short URL: <a href="/api/url/${data.shortUrl}" target="_blank">${data.shortUrl}</a></p>`;
+                resultDiv.innerHTML = `<p>Short URL: <a href="${data.shortUrl}" target="_blank">${data.shortUrl}</a></p>`;
             } else {
                 resultDiv.innerHTML = `<p>Error: ${data}</p>`;
             }

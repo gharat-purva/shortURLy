@@ -12,25 +12,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
+const express_1 = __importDefault(require("express"));
 const shortid_1 = __importDefault(require("shortid"));
-const url_1 = __importDefault(require("../../models/url"));
-const router = (0, express_1.Router)();
+const url_1 = __importDefault(require("../models/url"));
+const router = express_1.default.Router();
 router.post('/shorten', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { originalUrl } = req.body;
-    const shortUrl = shortid_1.default.generate();
-    const url = new url_1.default({ originalUrl, shortUrl });
-    yield url.save();
-    res.json({ originalUrl, shortUrl });
+    const shortId = shortid_1.default.generate();
+    const shortUrl = `${req.protocol}://${req.get('host')}/api/url/${shortId}`;
+    const newUrl = new url_1.default({ originalUrl, shortId });
+    yield newUrl.save();
+    res.json({ shortUrl, shortId });
 }));
-router.get('/:shortUrl', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { shortUrl } = req.params;
-    const url = yield url_1.default.findOne({ shortUrl });
+router.get('/:shortId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { shortId } = req.params;
+    const url = yield url_1.default.findOne({ shortId });
     if (url) {
-        return res.redirect(url.originalUrl);
+        res.redirect(url.originalUrl);
     }
     else {
-        return res.status(404).json('URL not found');
+        res.status(404).json({ error: 'URL not found' });
     }
 }));
 exports.default = router;

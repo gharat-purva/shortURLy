@@ -1,28 +1,30 @@
-import { Router } from 'express';
+import express from 'express';
 import shortid from 'shortid';
 import Url from '../models/url';
 
-const router = Router();
+const router = express.Router();
 
 router.post('/shorten', async (req, res) => {
-  const { originalUrl } = req.body;
-  const shortUrl = shortid.generate();
+    const { originalUrl } = req.body;
 
-  const url = new Url({ originalUrl, shortUrl });
-  await url.save();
+    const shortId = shortid.generate();
+    const shortUrl = `${req.protocol}://${req.get('host')}/api/url/${shortId}`;
 
-  res.json({ originalUrl, shortUrl });
+    const newUrl = new Url({ originalUrl, shortId });
+    await newUrl.save();
+
+    res.json({ shortUrl, shortId });
 });
 
-router.get('/:shortUrl', async (req, res) => {
-  const { shortUrl } = req.params;
-  const url = await Url.findOne({ shortUrl });
+router.get('/:shortId', async (req, res) => {
+    const { shortId } = req.params;
 
-  if (url) {
-    return res.redirect(url.originalUrl);
-  } else {
-    return res.status(404).json('URL not found');
-  }
+    const url = await Url.findOne({ shortId });
+    if (url) {
+        res.redirect(url.originalUrl);
+    } else {
+        res.status(404).json({ error: 'URL not found' });
+    }
 });
 
 export default router;

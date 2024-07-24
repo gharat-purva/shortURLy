@@ -1,10 +1,15 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-const urlSchema = new mongoose.Schema({
-  originalUrl: { type: String, required: true },
-  shortUrl: { type: String, required: true, unique: true }
+interface IUrl {
+    originalUrl: string;
+    shortId: string;
+}
+
+const urlSchema = new Schema<IUrl>({
+    originalUrl: { type: String, required: true },
+    shortId: { type: String, required: true, unique: true }
 });
 
-const Url = mongoose.model('Url', urlSchema);
+const Url = mongoose.model<IUrl>('Url', urlSchema);
 
 export default Url;
