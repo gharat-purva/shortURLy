@@ -21,7 +21,7 @@
             e.preventDefault();
             const originalUrl = document.getElementById('originalUrl').value;
 
-            const response = await fetch('/api/url/shorten', {
+            const response = await fetch('/.netlify/functions/urlShortener', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -33,9 +33,9 @@
 
             const resultDiv = document.getElementById('result');
             if (response.ok) {
-                resultDiv.innerHTML = `<p>Short URL: <a href="${data.shortUrl}" target="_blank">${data.shortUrl}</a></p>`;
+                resultDiv.innerHTML = `<p>Short URL: <a href="/api/url/${data.shortUrl}" target="_blank">${data.shortUrl}</a></p>`;
             } else {
-                resultDiv.innerHTML = `<p>Error: ${data}</p>`;
+                resultDiv.innerHTML = `<p>Error: ${data.message}</p>`;
             }
         });
     </script>
