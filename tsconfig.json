@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["@netlify/functions"],
     "target": "ES6",
     "module": "commonjs",
     "outDir": "dist",
@@ -11,3 +12,5 @@
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
+
+

@@ -3,9 +3,9 @@ import shortid from 'shortid';
 import { MongoClient } from 'mongodb';
 
 const client = new MongoClient('mongodb://localhost:27017', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
 });
+
+
 
 const dbName = 'url-shortener';
 const collectionName = 'urls';
